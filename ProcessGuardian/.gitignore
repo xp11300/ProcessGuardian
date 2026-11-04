@@ -1,0 +1,28 @@
+# IDE
+.idea/
+.vs/
+.vscode/
+
+# Build
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Secrets
+.env
+.env.*
+!.env.example

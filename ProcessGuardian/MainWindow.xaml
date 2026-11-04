@@ -1,0 +1,409 @@
+<Window x:Class="ProcessGuardian.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Process Guardian"
+        Icon="Assets/ProcessGuardian.ico"
+        Width="820"
+        Height="540"
+        MinWidth="700"
+        MinHeight="480"
+        WindowStartupLocation="Manual"
+        Background="#F3F5F8"
+        Foreground="#17212B">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+
+        <Style x:Key="NavigationButton" TargetType="Button">
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="14,0" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#C8D2DE" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#263849" />
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Padding" Value="18,0" />
+            <Setter Property="Background" Value="#2864D8" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1F53B9" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Height" Value="34" />
+            <Setter Property="MinWidth" Value="76" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="Background" Value="#EEF2F7" />
+            <Setter Property="Foreground" Value="#34495E" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DDE5EF" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="190" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#17212B">
+            <Grid Margin="20,16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="40" Height="40" CornerRadius="10" Background="#2864D8">
+                        <TextBlock Text="PG" Foreground="White" FontWeight="Bold" FontSize="16"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="Process" Foreground="White" FontSize="16" FontWeight="SemiBold" />
+                        <TextBlock Text="Guardian" Foreground="#9FB0C1" FontSize="13" />
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Grid.Row="1" Text="WORKSPACE" Foreground="#718397" FontSize="10"
+                           FontWeight="Bold" Margin="8,0,0,4" />
+
+                <StackPanel Grid.Row="2">
+                    <Button Content="Applications" Style="{StaticResource NavigationButton}"
+                            Command="{Binding SelectPageCommand}" CommandParameter="Applications" />
+                    <Button Content="Settings" Style="{StaticResource NavigationButton}"
+                            Command="{Binding SelectPageCommand}" CommandParameter="Settings" />
+                    <Button Content="About" Style="{StaticResource NavigationButton}"
+                            Command="{Binding SelectPageCommand}" CommandParameter="About" />
+                    <Button Content="Logs" Style="{StaticResource NavigationButton}"
+                            Command="{Binding SelectPageCommand}" CommandParameter="Logs" />
+                    <Button Content="Compatibility" Style="{StaticResource NavigationButton}"
+                            Command="{Binding SelectPageCommand}" CommandParameter="Compatibility" />
+                </StackPanel>
+
+                <TextBlock Grid.Row="3" Margin="8,4" Text="Managed apps run in isolated Job Objects."
+                           Foreground="#9FB0C1" FontSize="11" TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="28,22,28,22">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Margin="0,0,0,18">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="{Binding CurrentPage}" FontSize="24" FontWeight="SemiBold" />
+                    <TextBlock Margin="0,5,0,0" Text="Manage applications and the processes they start."
+                               Foreground="#6D7C8B" FontSize="13"
+                               Visibility="{Binding IsApplicationsPage, Converter={StaticResource BoolToVisibility}}" />
+                    <TextBlock Margin="0,5,0,0" Text="{Binding ApplicationMessage}" Foreground="#526273" FontSize="12"
+                               Visibility="{Binding IsApplicationsPage, Converter={StaticResource BoolToVisibility}}" />
+                </StackPanel>
+                <Button Grid.Column="1" Content="＋  Add application" Style="{StaticResource PrimaryButton}"
+                        Command="{Binding AddApplicationCommand}"
+                        VerticalAlignment="Center"
+                        Visibility="{Binding IsApplicationsPage, Converter={StaticResource BoolToVisibility}}" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid Visibility="{Binding IsApplicationsPage, Converter={StaticResource BoolToVisibility}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="18" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <UniformGrid Columns="2" MaxHeight="106">
+                        <Border Margin="0,0,8,0" Padding="14" Background="White" CornerRadius="10"
+                                BorderBrush="#E5EAF0" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="RUNNING SOFTWARE" Foreground="#738292" FontSize="10" FontWeight="Bold" />
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding RunningSoftwareCount}" FontSize="23" FontWeight="SemiBold" />
+                                    <TextBlock Text=" applications" Foreground="#738292" VerticalAlignment="Bottom" Margin="8,0,0,4" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Margin="8,0,0,0" Padding="14" Background="White" CornerRadius="10"
+                                BorderBrush="#E5EAF0" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="MANAGED PROCESSES" Foreground="#738292" FontSize="10" FontWeight="Bold" />
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding ManagedProcessCount}" FontSize="23" FontWeight="SemiBold" />
+                                    <TextBlock Text=" processes" Foreground="#738292" VerticalAlignment="Bottom" Margin="8,0,0,4" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <Grid Grid.Row="2">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{Binding ApplicationItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0,0,0,12" Padding="18" Background="White" CornerRadius="10"
+                                                BorderBrush="#E5EAF0" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBox Text="{Binding SoftwareName, UpdateSourceTrigger=LostFocus}" FontSize="16" FontWeight="SemiBold"
+                                                             BorderThickness="0" Background="Transparent" MinWidth="100" MaxWidth="240" />
+                                                    <Border Margin="12,0,0,0" Padding="9,3" Background="#EEF2F7" CornerRadius="10">
+                                                        <TextBlock Text="{Binding StatusText}" Foreground="#526273" FontSize="11" FontWeight="SemiBold" />
+                                                    </Border>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <TextBlock Text="PID " Foreground="#708091" FontSize="12" />
+                                                    <TextBlock Text="{Binding ProcessIdText}" Foreground="#34495E" FontSize="12" FontWeight="SemiBold" />
+                                                </StackPanel>
+
+                                                <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,0"
+                                                           Text="{Binding ExecutablePath}" Foreground="#667789" FontSize="12"
+                                                           TextTrimming="CharacterEllipsis" ToolTip="{Binding ExecutablePath}" />
+
+                                                <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Margin="0,7,0,0"
+                                                           Text="{Binding MonitorStatusText}" Foreground="#526273" FontSize="12" />
+
+                                                <Grid Grid.Row="3" Grid.ColumnSpan="2" Margin="0,8,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackPanel Margin="0,0,6,0">
+                                                        <TextBlock Text="Arguments (next launch)" FontSize="10" Foreground="#71808D" />
+                                                        <TextBox Margin="0,3,0,0" Padding="6,4" FontSize="11"
+                                                                 Text="{Binding Arguments, UpdateSourceTrigger=LostFocus}"
+                                                                 ToolTip="Raw Windows command-line text. Quote argument values for the target program. Changes affect the next launch only." />
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                                                        <TextBlock Text="Working directory (next launch)" FontSize="10" Foreground="#71808D" />
+                                                        <TextBox Margin="0,3,0,0" Padding="6,4" FontSize="11"
+                                                                 Text="{Binding WorkingDirectory, UpdateSourceTrigger=LostFocus}"
+                                                                 ToolTip="Leave blank to use the executable's folder. Changes affect the next launch only." />
+                                                    </StackPanel>
+                                                    <CheckBox Grid.Row="1" Grid.ColumnSpan="2" Margin="0,8,0,0" FontSize="11"
+                                                              Content="Treat main window hide as close (next launch)"
+                                                              IsChecked="{Binding TreatMainWindowHideAsClose}"
+                                                              ToolTip="For apps whose close button only hides the main window (for example to the tray). When the selected main window stays hidden (not minimized) for 400 ms, Process Guardian treats it as closed and closes this app's Job. Processes outside the Job are not affected. Off by default." />
+                                                </Grid>
+
+                                                <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Margin="0,7,0,0"
+                                                           Text="{Binding JobStatusText}" Foreground="#526273" FontSize="12" />
+
+                                                <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Margin="0,5,0,0"
+                                                           Text="{Binding RecentOperationResult}" Foreground="#526273" FontSize="12"
+                                                           TextWrapping="Wrap" />
+
+                                                <TextBlock Grid.Row="6" Grid.ColumnSpan="2" Margin="0,5,0,0"
+                                                           Text="{Binding CompatibilityWarningText}" FontSize="11"
+                                                           TextWrapping="Wrap" ToolTip="Detected issues are labeled. The remaining statement describes limits Process Guardian cannot automatically detect." />
+
+                                                <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Margin="0,7,0,0"
+                                                           Text="{Binding ErrorMessage}" Foreground="#B42318" FontSize="12"
+                                                           TextWrapping="Wrap"
+                                                           Visibility="{Binding HasError, Converter={StaticResource BoolToVisibility}}" />
+
+                                                <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal"
+                                                            HorizontalAlignment="Right" Margin="0,14,0,0">
+                                                    <Button Content="Launch" Style="{StaticResource PrimaryButton}" Height="34" Padding="14,0"
+                                                            Command="{Binding LaunchCommand}" />
+                                                    <Button Content="创建桌面快捷方式" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0"
+                                                            ToolTip="在桌面创建一个快捷方式：双击后通过 Process Guardian 启动这个条目（--launch &quot;名称&quot;）。已存在同名快捷方式时不会覆盖。"
+                                                            Command="{Binding DataContext.CreateShortcutCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                    <Button Content="Stop" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0"
+                                                            Command="{Binding StopCommand}" />
+                                                    <Button Content="Remove" Style="{StaticResource SecondaryButton}" Margin="8,0,0,0"
+                                                            Command="{Binding RemoveCommand}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+
+                        <Border Padding="30" Background="White" CornerRadius="10" BorderBrush="#E5EAF0"
+                                BorderThickness="1"
+                                Visibility="{Binding IsApplicationListEmpty, Converter={StaticResource BoolToVisibility}}">
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="380">
+                                <TextBlock Text="No applications added" FontSize="18" FontWeight="SemiBold"
+                                           HorizontalAlignment="Center" />
+                                <TextBlock Margin="0,8,0,0" Text="Add an EXE to your list. You can launch it whenever you need it."
+                                           Foreground="#71808D" TextAlignment="Center" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <Border Padding="28" Background="White" CornerRadius="10" BorderBrush="#E5EAF0"
+                        BorderThickness="1"
+                        Visibility="{Binding IsSettingsPage, Converter={StaticResource BoolToVisibility}}">
+                    <StackPanel VerticalAlignment="Top">
+                        <TextBlock Text="Settings" FontSize="20" FontWeight="SemiBold" />
+                        <TextBlock Margin="0,14,0,4" Text="Configuration file" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding ConfigurationPath}" Foreground="#71808D" TextWrapping="Wrap" />
+                        <Button Margin="0,14,0,0" HorizontalAlignment="Left" Content="Open configuration folder"
+                                Style="{StaticResource SecondaryButton}" Command="{Binding OpenConfigurationFolderCommand}" />
+                        <Button Margin="0,10,0,0" HorizontalAlignment="Left" Content="Restore default settings"
+                                Style="{StaticResource SecondaryButton}" Command="{Binding RestoreDefaultSettingsCommand}" />
+                        <TextBlock Margin="0,12,0,0" Text="{Binding ConfigurationError}" Foreground="#B42318"
+                                   TextWrapping="Wrap" Visibility="{Binding HasConfigurationError, Converter={StaticResource BoolToVisibility}}" />
+                        <TextBlock Margin="0,22,0,4" Text="开机启动" FontWeight="SemiBold" />
+                        <!-- One-way: the command writes the registry, then IsAutoStartEnabled re-reads the real state. -->
+                        <CheckBox Margin="0,4,0,0" Content="开机时自动启动 Process Guardian"
+                                  IsChecked="{Binding IsAutoStartEnabled, Mode=OneWay}"
+                                  Command="{Binding SetAutoStartCommand}"
+                                  CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+                                  ToolTip="登录 Windows 后在托盘中静默启动 Process Guardian，不会自动启动任何程序" />
+                        <TextBlock Margin="0,6,0,0" Text="{Binding AutoStartHint}" Foreground="#B42318"
+                                   TextWrapping="Wrap" Visibility="{Binding HasAutoStartHint, Converter={StaticResource BoolToVisibility}}" />
+                        <TextBlock Margin="0,6,0,0" FontSize="11" Foreground="#71808D" TextWrapping="Wrap"
+                                   Text="仅对当前 Windows 用户生效（写入 HKCU\…\Run，无需管理员权限）。移动或重新生成程序后，请重新勾选以更新路径。" />
+                    </StackPanel>
+                </Border>
+
+                <Border Padding="28" Background="White" CornerRadius="10" BorderBrush="#E5EAF0"
+                        BorderThickness="1"
+                        Visibility="{Binding IsAboutPage, Converter={StaticResource BoolToVisibility}}">
+                    <StackPanel VerticalAlignment="Top">
+                        <TextBlock Text="About Process Guardian" FontSize="20" FontWeight="SemiBold" />
+                        <TextBlock Margin="0,8,0,0" Text="A desktop utility that manages application process trees."
+                                   Foreground="#71808D" />
+                    </StackPanel>
+                </Border>
+
+                <Border Padding="24" Background="White" CornerRadius="10" BorderBrush="#E5EAF0"
+                        BorderThickness="1" Visibility="{Binding IsCompatibilityPage, Converter={StaticResource BoolToVisibility}}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="Compatibility and user control" FontSize="20" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,12,0,0" Text="How Process Guardian manages an app" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,4,0,0" Text="When you launch an EXE here, Windows creates it suspended. Process Guardian assigns it to a private Job Object, then resumes it. Windows normally places its child processes in the same Job. Stop closes only that app's Job Object." TextWrapping="Wrap" />
+                            <TextBlock Margin="0,12,0,0" Text="Why window monitoring can be unavailable" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,4,0,0" Text="Automatic cleanup needs a confidently identified top-level window. Hidden, titleless, owned or ambiguous windows may not be reliable. In that case Process Guardian keeps the Job alive and shows a warning; use Stop when you want to close its Job." TextWrapping="Wrap" />
+                            <TextBlock Margin="0,12,0,0" Text="Processes outside the Job" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,4,0,0" Text="Some apps ask Windows services, COM servers, brokers, updaters or elevated helpers to start work. Those processes may belong to another service, user, session or Job. Breakaway children can also leave the Job when the target app and Windows policy permit it. Process Guardian cannot reliably discover every such relationship and will not search by process name or kill processes outside its Job." TextWrapping="Wrap" />
+                            <TextBlock Margin="0,12,0,0" Text="Packaged apps and permissions" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,4,0,0" Text="UWP/MSIX apps often use package activation rather than a directly launchable EXE. A WindowsApps path is only a clue, not proof that an app is packaged. Apps requiring elevation, another user or another Session may fail to launch or assign; Process Guardian does not request administrator access." TextWrapping="Wrap" />
+                            <TextBlock Margin="0,12,0,0" Text="When to use Stop" FontWeight="SemiBold" />
+                            <TextBlock Margin="0,4,0,0" Text="Use Stop if window monitoring is unavailable, the app has no conventional main window, or you want to close its managed process group yourself. Confirmation explains that only this app's Job is affected. If the app delegated work outside the Job, that external work may remain." TextWrapping="Wrap" />
+                            <TextBlock Margin="0,12,0,0" Text="Process Guardian chooses to preserve a process when it cannot identify a main window reliably. This avoids treating uncertainty as permission to terminate software." FontWeight="SemiBold" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+
+                <Grid Visibility="{Binding IsLogsPage, Converter={StaticResource BoolToVisibility}}">
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                    <DockPanel Margin="0,0,0,10">
+                        <Button DockPanel.Dock="Right" Content="Clear logs" Command="{Binding Diagnostics.ClearCommand}" Margin="6,0" />
+                        <Button DockPanel.Dock="Right" Content="Open folder" Command="{Binding Diagnostics.OpenFolderCommand}" Margin="6,0" />
+                        <Button DockPanel.Dock="Right" Content="Refresh" Command="{Binding Diagnostics.RefreshCommand}" Margin="6,0" />
+                        <ComboBox Width="130" ItemsSource="{Binding Diagnostics.Levels}" SelectedItem="{Binding Diagnostics.SelectedLevel}" />
+                        <TextBox Width="180" Margin="8,0" Text="{Binding Diagnostics.SearchText, UpdateSourceTrigger=PropertyChanged}" ToolTip="Search logs" />
+                    </DockPanel>
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding Diagnostics.Entries}" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" EnableRowVirtualization="True" RowDetailsVisibilityMode="VisibleWhenSelected" HeadersVisibility="Column" RowHeaderWidth="0">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Level}" Value="Error"><Setter Property="Foreground" Value="#B42318"/><Setter Property="FontWeight" Value="SemiBold"/></DataTrigger>
+                                    <DataTrigger Binding="{Binding Level}" Value="Critical"><Setter Property="Foreground" Value="#7A271A"/><Setter Property="FontWeight" Value="Bold"/><Setter Property="Background" Value="#FEF3F2"/></DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="8">
+                                    <TextBlock Text="{Binding ApplicationName, StringFormat='Application: {0}'}" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding ProcessId, StringFormat='PID: {0}'}" />
+                                    <TextBox Text="{Binding Exception}" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" MaxHeight="140" BorderThickness="0" Background="Transparent" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Time" Binding="{Binding Timestamp, StringFormat={}{0:HH:mm:ss.fff}}" Width="82" />
+                            <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="68" />
+                            <DataGridTextColumn Header="Module" Binding="{Binding Module}" Width="90" />
+                            <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock Grid.Row="2" Text="{Binding Diagnostics.LoggingWarning}" Foreground="#B42318" TextWrapping="Wrap" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+
+

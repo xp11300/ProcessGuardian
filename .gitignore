@@ -1,0 +1,22 @@
+﻿# .NET build
+**/bin/
+**/obj/
+
+# Test artifacts
+**/.test-artifacts/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Secrets
+.env
+.env.*
+!.env.example
+ProcessGuardian/HANDOVER.md
